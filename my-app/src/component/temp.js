@@ -1,15 +1,24 @@
 
-import './App.css';
+// import './App.css';
 
-function Temp() {
-  return (
-    <div className="App">
-      <header>
-          Learn React
+// function Temp() {
+//   return (
+//     console.log('abcdddd')
+//     // <div className="App">
+//       <header>
+//           Learn React
         
-      </header>
-    </div>
-  );
-}
+//       </header>
+//     // </div>
+//   );
+// }
 
-export default Temp;
+// export default Temp;
+
+const person = {
+  name : 'Rossie',
+  age : 20 
+}
+console.log(person.name)
+export default person;
+
