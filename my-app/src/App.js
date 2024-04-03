@@ -1,170 +1,91 @@
-// import logo from './logo.svg';
-// import './App.css';
-import value from './component/temp.js';
-import val from "./component/temp.js";
-import { multiply } from "./component/util.js"; 
-import add from "./component/util.js"
+import logo from './logo.svg';
+import './App.css';
+import { CORE_CONCEPTS } from './data.js';
+// import { Hello } from './component/util.js';
 
+const reactElements = ['Fundamental','Crucial','Core']
+
+function getIndex(max){
+  return Math.floor(Math.random() * (max+1));
+}
+
+// const user={
+//   firstName : 'John',
+//   lastName : 'David',
+//   role : 'Instructor'
+// }
+
+// function UserData(){
+//   return(
+//     <div>
+//         <h2>
+//           {user.firstName} {user.lastName}
+//         </h2>
+//     </div>
+//   )
+// }
+
+function CoreConcepts(props){
+  return(
+    <li>
+        <h3>{props.title}</h3>
+        <p>{props.desc}</p>
+    </li> 
+  );
+}
+
+function Header(){
+  const elements = reactElements[getIndex(2)]
+
+  return (
+    <header className="App-header">
+      <img src={logo} className="App-logo" alt="logo" />
+      <h1>React Essentials</h1>
+      <p>
+        {elements} React concepts you will need for any app you are going to build!
+        {/* Edit <code>src/App.js</code> and save to muj7ybtf. */}
+      </p>
+      {/* <a
+        className="App-link"
+        href="https://reactjs.org"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Learn React
+      </a> */}
+  </header>
+)
+}
 
 
 function App() {
-  value()
-//   return (
-//     <div className="App">
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to muj7ybtf.
-        </p> */}
-        {/* <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a> */}
-      {/* </header> */}
-//     </div>
-//   );
+  return (
+    // <div className="App">
+    <div>
+      <Header/>
+      <main>
+        <h2>Core Concepts of React</h2>
+        <ul>
+          <CoreConcepts
+            title = {CORE_CONCEPTS[0].title}
+            desc = {CORE_CONCEPTS[0].description}
+          />
+          <CoreConcepts
+            title = 'Props'
+            desc =  'Make components configurable (and therefore reusable) by passing input data to them.'
+          />
+          <CoreConcepts
+            title = 'JSX'
+            desc =  'Return (potentially dynamic) HTML(ish) code to define the actual markup that will be rendered.'
+          />
+          <CoreConcepts
+            title = 'State'
+            desc =  'React-managed data which, when changed, causes the component to re-render & the UI to update.'
+          />
+        </ul>
+      </main>
+    </div>
+    // </div>
+  );
 }
 export default App;
-
-
-const res = multiply(1, 2, 3)
-console.log(res)
-
-const result = add(10, 10)
-console.log(result)
-
-
-let name='muhsina';
-// name="helloo"
-console.log(name);
-const msg="Hello World";
-// msg="HIIII"
-console.log(msg);
-
-
-console.log(5+5)
-console.log("hello"+"hii")
-console.log(10 === 5)
-console.log(10 === 10)
-if(10 > 5){
-  console.log('okk')
-}
-
-
-//functions
-function demo(){
-  console.log('demo');
-}
-demo();
-
-function temp(name,msg){
-  console.log(name);
-  console.log(msg);
-}
-temp('musiiii','hii')
-
-
-
-//object
-const user ={
-  name:'Muhsina Musthafa',
-  age:23,
-  abc() {
-    console .log('qwerty');
-    console.log(this.age)
-   }
-}
-console.log(user)
-console.log(user.name)
-user.abc()
-
-class User {
-  constructor(name,age){
-    this.name = name;
-    this.age = age;
-  }
-}
-const user1 = new User('Joe',35)
-console.log(user1)
-
-
-//array 
-const array1 =['a','b','c']
-console.log(array1[0])
-array1.pop();
-console.log(array1)
-array1.push('s');
-console.log(array1)
-
-const index = array1.findIndex((item) =>{
-  return item === 'b'
-})
-console.log(index)
-
-//map is used to transform an array
-const mappedArray = array1.map((item) => item + 's')
-console.log(mappedArray)//return a new array
-
-const array2 = [1,2,3]
-console.log(array2) 
-const mappedArray2 = array2.map((item) => ({value : item}))
-console.log(mappedArray2)
-
-
-
-//destructuring
-const [fname, lname] = ['ABIGAIL','PETERSON']
-console.log(fname);
-console.log(lname);
-
-const {firstName, lastName} = {
-  firstName : 'JOHN',
-  lastName : 'DAVID'
-}
-console.log(firstName);
-console.log(lastName);
-
-function getDetails({id, prod}){
-  localStorage.setItem('id',id);
-  localStorage.setItem('prod',prod)
-}
-getDetails({id : 1, prod:'book'});
-
-
-
-//spread operator
-const array3 = ['m']
-const formattedArray = [...array1, ...array3]
-console.log(formattedArray)
-
-const User2 = {
-    dept : 'developer',
-    ...user
-}
-console.log(User2)
-
-
-
-function one() {
-  function two() {
-    console.log('twoo')
-  }
-  two();
-  console.log('onee')
-}
-one();
-
-
-
-const numbers=[1,2,3,4,5,6,7]
-
-const mul = numbers.map((el) => el*2)
-console.log(mul)
-const even = numbers.filter((el) => el%2 === 0)
-console.log(even)
-const odd= numbers.filter((el) => el%2 !== 0)
-console.log(odd)

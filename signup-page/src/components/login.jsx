@@ -1,37 +1,61 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export function Login(){
-    const[submit,setSubmit] = useState(false)
+
+    // const[submit,setSubmit] = useState(false)
     const[islogin,setIsLogin] = useState(true)
+    const[error,setError] = useState(false)
 
-    // const handleEmail = (e)=>{
-    //     setEmail(e.target.value)
-    //     // console.log(email);
-    //     // console.log(e.target.value)
-    // }
+    const email = useRef()
+    const password = useRef()
 
-    // const handlePassword = (e)=>{
-    //     setPassword(e.target.value)
-    // }
+    const handleSubmit= ()=>{
+        const emailData = email.current.value
+        const passData = password.current.value
+        console.log(emailData)
+        console.log(passData)
 
-    const handleSubmit= (e)=>{
-        setSubmit(true)
-        alert('Success')
-        console.log('submitted')
+        if (!islogin){
+          if(localStorage.getItem(emailData)){
+            alert('User already exists')
+            setError(true)
+            // email.current.style.borderColor = 'red';
+          }
+
+          localStorage.setItem(emailData,passData)
+          alert('Registered succesfully!!')
+          
+        }
+        else{
+          if (localStorage.getItem(emailData)){
+            if(localStorage.getItem(emailData) === passData){
+              // password.current.style.borderColor = 'green'
+              alert('Logged In')
+            }
+            else{
+              alert('Password mismatch')
+              setError(true)
+              // setError({borderColor:'red'})
+              // password.current.style.borderColor = 'red';
+            }
+          }
+          else{alert('User not found')}
+        }
+        // setSubmit(true)
     }
 
     return (
         <div className="App">
           <div className='container'>
             <div className="mainHeader">
-              <h1>{islogin ? 'LogIn Page' : 'SignUp Page'}</h1>
+              <h1>{islogin ? 'LogIn' : 'SignUp'}</h1>
             </div>
-                {!islogin &&<input type='text' className="input" placeholder='Enter your Name'/>}
+                {!islogin && <input type='text' className="input" placeholder='Enter your Name' required/>}
                 {!islogin &&<input type='number' className="input" placeholder='Enter your Age'/>}
-              <input className="input" type='email' placeholder='Enter your email'/>
-              <input className="input" type='password' placeholder='Enter your password'/>
+                <input className="input" type='email' style={{borderColor: error && !islogin &&'red'}} ref={email} placeholder='Enter your email' required/>
+                <input className="input" type='password' style={{borderColor: error &&'red'}} ref={password} placeholder='Enter your password' required/>
             <div>
-                <button onClick={handleSubmit} className="btn" type='submit' value={submit}>
+                <button onClick={handleSubmit} className="btn" type='submit'>
                     {islogin ? 'Log In' : 'Sign In'}
                 </button>
             </div>

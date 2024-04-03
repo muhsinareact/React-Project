@@ -22,3 +22,5 @@ const person = {
 console.log(person.name)
 export default person;
 
+
+
