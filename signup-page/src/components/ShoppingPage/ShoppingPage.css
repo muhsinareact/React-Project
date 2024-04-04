@@ -3,5 +3,30 @@
 }
 
 .mainHeader{
-    color: brown;
+    color: black;
+    font-size: 40px;
 }
+
+.grid-container{
+    
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    /* background-color: #708aaf; */
+    padding: 10px;
+    /* flex-shrink: 3; */
+    /* display: flex; */
+    /* align-items: center; */
+    /* width: 100%; */
+    /* height: auto; */
+    /* justify-content: center; */
+}
+
+.img{
+    width: 200px;
+}
+
+.title{
+    font-size: 20px;
+    /* text-align: justify; */
+}
+

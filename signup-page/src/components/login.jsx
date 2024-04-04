@@ -1,4 +1,6 @@
 import { useState, useRef } from "react";
+import {BrowserRouter as Router, Route, Switch, Link} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function Login(){
 
@@ -8,6 +10,7 @@ export function Login(){
 
     const email = useRef()
     const password = useRef()
+    const navigate = useNavigate()
 
     const handleSubmit= ()=>{
         const emailData = email.current.value
@@ -29,8 +32,16 @@ export function Login(){
         else{
           if (localStorage.getItem(emailData)){
             if(localStorage.getItem(emailData) === passData){
+              navigate('/products') 
+               
+              // <Link to='/products'/>
+              // <Router>
+              //   <Switch>
+              //     <Route path="/products"/>
+              //   </Switch>
+              // </Router>
               // password.current.style.borderColor = 'green'
-              alert('Logged In')
+              // alert('Logged In')
             }
             else{
               alert('Password mismatch')
