@@ -1,11 +1,16 @@
-import {useState, useEffect} from "react";
-import  {getProducts} from "../../util";
-import { ProductDetails } from "../ProductDetails/ProductDetails";
-import {BrowserRouter as Router, Route, Link, Switch} from "react-router-dom";  
-import { NavLink } from "react-router-dom";
+import {useState, useEffect, useContext} from "react";
+import  {getProducts, getSingleProduct} from "../../util";
+import {BrowserRouter as Router, Route, Link, Switch, Routes} from "react-router-dom";  
+import { NavLink, useNavigate} from "react-router-dom";
+import { CartContext } from "../../context/CartContext";
+
 
 export function ShoppingPage() {
     const [data,setData] = useState([]);
+    const[cartItems, setCartItems] = useState([]);
+    const cartContext = useContext(CartContext)
+    const navigate = useNavigate()
+    // console.log('cartContext', cartContext)
 
     useEffect(()=> {
         getData();
@@ -15,43 +20,60 @@ export function ShoppingPage() {
         // console.log(data,"oo")
         setData(data)
     }
-    console.log('qwe',data)
+    // console.log('qwe',data)
+
+    const addToCart = (item) => {
+        console.log('muhhhh')
+        const isItemInCart = cartItems.find((cartItem) => cartItem.id === item.id); 
+
+        if (isItemInCart) {
+            setCartItems(
+              cartItems.map((cartItem) =>
+                cartItem.id === item.id
+                  ? { ...cartItem, quantity: cartItem.quantity + 1 }
+                  : cartItem
+              )
+            );
+          } else {
+            setCartItems([...cartItems, { ...item, quantity: 1 }]);
+          }
+          console.log(cartItems,'cartitems')
+
+          return (
+            <CartContext.Provider
+              value={{
+                cartItems,
+                addToCart,
+              }}
+            >
+            </CartContext.Provider>
+          );
+        };
+        
 
     return(
         <div className="app">
-            {/* <div className="container"> */}
-            {/* <div className='flex flex-col justify-center bg-gray-100'>
-                <div className='flex justify-between items-center px-20 py-5'> */}
-                    <h1 className='mainHeader'><strong>Shopping Page</strong></h1>
-                {/* </div> */}
-                {/* <Router> */}
-                    <div className="grid-container">    
-                        {
-                            data.map(data => (
-                                <div key={data.id} className='bg-white shadow-md rounded-lg px-10 py-10'>
-                                    <NavLink to={'/products/' + data.id} component={<ProductDetails/>}>
-                                    <img src={data.image} alt={data.title} className='img'/>
-                                    </NavLink>
-                                    <div className="mt-4">
-                                        <h2 className="title">{data.title}</h2>
-                                        <h2 className="price">${data.price}</h2>
-                                        {/* <Link to={'data/' + data.id} /> */}
-                                        {/* <Route path="data/:id"/> */}
-                                        {/* <Switch> */}
-                                            {/* <Route path="/data/:id"/> */}
-                                            {/* <ProductDetails product={product}/> */}
-                                            {/* </Route> */}
-                                        {/* </Switch> */}
-                                    </div>
-                                    
-                                </div>
-                                
-                            ))
-                        }
-                    </div>
-                {/* </Router> */}
-            {/* </div> */}
-            {/* </div> */}
+            <h1 className='mainHeader'><strong>Shopping Page</strong></h1>
+            <button onClick={()=>{navigate('/cart')}} className="buttonCart">Cart</button>
+            <div className="grid-container">    
+                {
+                    data.map(product => (
+                        <div key={product.id} className='card'>
+                            <NavLink to={'/products/' + product.id} activeclassname="current">
+                            <img src={product.image} alt={product.title} className='img'/>
+                            </NavLink>
+                            <div className="mt-4">
+                                <h2 className="title">{product.title}</h2>
+                                <h2 className="price">${product.price}</h2>
+                            </div>
+                            <div>
+                                <button onClick={addToCart} className='cartButton'>Add to Cart</button>
+                            </div>
+                        </div>
+                        
+                    ))
+                }
+            </div>
         </div>
        
     )

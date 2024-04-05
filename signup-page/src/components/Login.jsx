@@ -15,8 +15,8 @@ export function Login(){
     const handleSubmit= ()=>{
         const emailData = email.current.value
         const passData = password.current.value
-        console.log(emailData)
-        console.log(passData)
+        // console.log(emailData)
+        // console.log(passData)
 
         if (!islogin){
           if(localStorage.getItem(emailData)){
